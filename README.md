@@ -10,22 +10,26 @@ The system is composed of independent services communicating through REST and Ap
 
 ## High-Level Architecture
 
-Client
-   │
-   ▼
-API Gateway
-   │
-   ├── Auth Service
-   ├── User Service
-   ├── Product Service
-   └── Order Service
-           │
-           ▼
-         Kafka
-           │
-    ┌──────┼──────┐
-    ▼      ▼      ▼
-Payment Inventory Notification
+```text
+                    Client
+                       │
+                       ▼
+               API Gateway
+                       │
+      ┌────────────────┼────────────────┐
+      ▼                ▼                ▼
+ Auth Service    User Service    Product Service
+                                          │
+                                          ▼
+                                   Order Service
+                                          │
+                                          ▼
+                                        Kafka
+                                          │
+               ┌──────────────┬──────────────┬──────────────┐
+               ▼              ▼              ▼
+       Payment Service  Inventory Service  Notification Service
+```
 
 ### Services
 
