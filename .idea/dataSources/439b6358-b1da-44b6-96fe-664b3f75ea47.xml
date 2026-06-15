@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="user_db@localhost">
+<dataSource name="marketplace_db@localhost">
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.54">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <IntrospectionStateNumber>866</IntrospectionStateNumber>
+      <IntrospectionStateNumber>885</IntrospectionStateNumber>
       <ServerVersion>17.6</ServerVersion>
       <StartupTime>1781374100</StartupTime>
       <TimeZones>true ACDT
@@ -806,24 +806,28 @@ false Zulu
       <ObjectId>16847</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <database id="6" parent="1" name="postgres">
+    <database id="6" parent="1" name="marketplace_db">
+      <ObjectId>24887</ObjectId>
+      <OwnerName>postgres</OwnerName>
+    </database>
+    <database id="7" parent="1" name="postgres">
       <Comment>default administrative connection database</Comment>
       <ObjectId>5</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <database id="7" parent="1" name="salão">
+    <database id="8" parent="1" name="salão">
       <ObjectId>16456</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <database id="8" parent="1" name="teste2">
+    <database id="9" parent="1" name="teste2">
       <ObjectId>16582</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <database id="9" parent="1" name="testesalao">
+    <database id="10" parent="1" name="testesalao">
       <ObjectId>16526</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <database id="10" parent="1" name="user_db">
+    <database id="11" parent="1" name="user_db">
       <Current>1</Current>
       <Grants>11||10|C|G
 11||-9223372036854775808|U|G
@@ -834,59 +838,59 @@ false Zulu
 14751||10|C|G
 14751||-9223372036854775808|U|G
 14751||10|U|G</Grants>
-      <IntrospectionStateNumber>866</IntrospectionStateNumber>
+      <IntrospectionStateNumber>885</IntrospectionStateNumber>
       <ObjectId>24830</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
-    <role id="11" parent="1" name="pg_checkpoint">
+    <role id="12" parent="1" name="pg_checkpoint">
       <ObjectId>4544</ObjectId>
     </role>
-    <role id="12" parent="1" name="pg_create_subscription">
+    <role id="13" parent="1" name="pg_create_subscription">
       <ObjectId>6304</ObjectId>
     </role>
-    <role id="13" parent="1" name="pg_database_owner">
+    <role id="14" parent="1" name="pg_database_owner">
       <ObjectId>6171</ObjectId>
     </role>
-    <role id="14" parent="1" name="pg_execute_server_program">
+    <role id="15" parent="1" name="pg_execute_server_program">
       <ObjectId>4571</ObjectId>
     </role>
-    <role id="15" parent="1" name="pg_maintain">
+    <role id="16" parent="1" name="pg_maintain">
       <ObjectId>6337</ObjectId>
     </role>
-    <role id="16" parent="1" name="pg_monitor">
+    <role id="17" parent="1" name="pg_monitor">
       <ObjectId>3373</ObjectId>
       <RoleGrants>3374
 3375
 3377</RoleGrants>
     </role>
-    <role id="17" parent="1" name="pg_read_all_data">
+    <role id="18" parent="1" name="pg_read_all_data">
       <ObjectId>6181</ObjectId>
     </role>
-    <role id="18" parent="1" name="pg_read_all_settings">
+    <role id="19" parent="1" name="pg_read_all_settings">
       <ObjectId>3374</ObjectId>
     </role>
-    <role id="19" parent="1" name="pg_read_all_stats">
+    <role id="20" parent="1" name="pg_read_all_stats">
       <ObjectId>3375</ObjectId>
     </role>
-    <role id="20" parent="1" name="pg_read_server_files">
+    <role id="21" parent="1" name="pg_read_server_files">
       <ObjectId>4569</ObjectId>
     </role>
-    <role id="21" parent="1" name="pg_signal_backend">
+    <role id="22" parent="1" name="pg_signal_backend">
       <ObjectId>4200</ObjectId>
     </role>
-    <role id="22" parent="1" name="pg_stat_scan_tables">
+    <role id="23" parent="1" name="pg_stat_scan_tables">
       <ObjectId>3377</ObjectId>
     </role>
-    <role id="23" parent="1" name="pg_use_reserved_connections">
+    <role id="24" parent="1" name="pg_use_reserved_connections">
       <ObjectId>4550</ObjectId>
     </role>
-    <role id="24" parent="1" name="pg_write_all_data">
+    <role id="25" parent="1" name="pg_write_all_data">
       <ObjectId>6182</ObjectId>
     </role>
-    <role id="25" parent="1" name="pg_write_server_files">
+    <role id="26" parent="1" name="pg_write_server_files">
       <ObjectId>4570</ObjectId>
     </role>
-    <role id="26" parent="1" name="postgres">
+    <role id="27" parent="1" name="postgres">
       <BypassRls>1</BypassRls>
       <CanLogin>1</CanLogin>
       <CreateDb>1</CreateDb>
@@ -895,110 +899,39 @@ false Zulu
       <Replication>1</Replication>
       <SuperRole>1</SuperRole>
     </role>
-    <tablespace id="27" parent="1" name="pg_default">
+    <tablespace id="28" parent="1" name="pg_default">
       <ObjectId>1663</ObjectId>
       <StateNumber>1</StateNumber>
       <OwnerName>postgres</OwnerName>
     </tablespace>
-    <tablespace id="28" parent="1" name="pg_global">
+    <tablespace id="29" parent="1" name="pg_global">
       <ObjectId>1664</ObjectId>
       <StateNumber>1</StateNumber>
       <OwnerName>postgres</OwnerName>
     </tablespace>
-    <schema id="29" parent="10" name="information_schema">
+    <schema id="30" parent="11" name="information_schema">
       <ObjectId>14751</ObjectId>
       <StateNumber>538</StateNumber>
       <OwnerName>postgres</OwnerName>
     </schema>
-    <schema id="30" parent="10" name="pg_catalog">
+    <schema id="31" parent="11" name="pg_catalog">
       <Comment>system catalog schema</Comment>
       <ObjectId>11</ObjectId>
       <StateNumber>532</StateNumber>
       <OwnerName>postgres</OwnerName>
     </schema>
-    <schema id="31" parent="10" name="public">
+    <schema id="32" parent="11" name="public">
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <LastIntrospectionL1Xid>866</LastIntrospectionL1Xid>
-      <LastIntrospectionL2Xid>866</LastIntrospectionL2Xid>
-      <LastIntrospectionL3Xid>866</LastIntrospectionL3Xid>
+      <LastIntrospectionL1Xid>885</LastIntrospectionL1Xid>
+      <LastIntrospectionL2Xid>885</LastIntrospectionL2Xid>
+      <LastIntrospectionL3Xid>885</LastIntrospectionL3Xid>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2026-06-14.04:46:25</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2026-06-15.01:39:21</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>532</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
-    <sequence id="32" parent="31" name="tb_user_id_seq">
-      <DetailsLevel>2</DetailsLevel>
-      <ObjectId>24878</ObjectId>
-      <SequenceIdentity>1</SequenceIdentity>
-      <StartValue>1</StartValue>
-      <StateNumber>863</StateNumber>
-      <StoredType>integer|0s</StoredType>
-      <OwnerName>postgres</OwnerName>
-    </sequence>
-    <table id="33" parent="31" name="tb_user">
-      <DetailsLevel>2</DetailsLevel>
-      <ObjectId>24879</ObjectId>
-      <StateNumber>863</StateNumber>
-      <AccessMethodId>2</AccessMethodId>
-      <OwnerName>postgres</OwnerName>
-    </table>
-    <check id="34" parent="33" name="tb_user_role_check">
-      <ColNames>role</ColNames>
-      <ObjectId>24882</ObjectId>
-      <Predicate>(role)::text = ANY ((ARRAY[&apos;ADMIN&apos;::character varying, &apos;USER&apos;::character varying])::text[])</Predicate>
-      <StateNumber>863</StateNumber>
-    </check>
-    <column id="35" parent="33" name="id">
-      <IdentityKind>by-default</IdentityKind>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StateNumber>863</StateNumber>
-      <StoredType>integer|0s</StoredType>
-      <SequenceId>24878</SequenceId>
-      <TypeId>23</TypeId>
-    </column>
-    <column id="36" parent="33" name="email">
-      <Position>2</Position>
-      <StateNumber>863</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="37" parent="33" name="name">
-      <Position>3</Position>
-      <StateNumber>863</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="38" parent="33" name="password">
-      <Position>4</Position>
-      <StateNumber>863</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="39" parent="33" name="role">
-      <Position>5</Position>
-      <StateNumber>863</StateNumber>
-      <StoredType>varchar(255)|0s</StoredType>
-      <TypeId>1043</TypeId>
-    </column>
-    <index id="40" parent="33" name="tb_user_pkey">
-      <ColNames>id</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>24885</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>863</StateNumber>
-      <Unique>1</Unique>
-      <AccessMethodId>403</AccessMethodId>
-    </index>
-    <key id="41" parent="33" name="tb_user_pkey">
-      <NameSurrogate>1</NameSurrogate>
-      <ObjectId>24886</ObjectId>
-      <Primary>1</Primary>
-      <StateNumber>863</StateNumber>
-      <UnderlyingIndexId>24885</UnderlyingIndexId>
-    </key>
   </database-model>
 </dataSource>
