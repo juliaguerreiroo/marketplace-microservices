@@ -49,7 +49,6 @@ The system is composed of independent services communicating through REST and Ap
 - Spring Boot 3
 - Spring Cloud
 - Spring Security
-- OAuth2 Authorization Server
 - JWT
 - Kafka
 - PostgreSQL
@@ -66,7 +65,7 @@ The system is composed of independent services communicating through REST and Ap
 ## Project Goals
 
 - Learn Microservices Architecture
-- Implement OAuth2 Authentication
+- Implement Spring Security Authentication
 - Build Event-Driven Communication with Kafka
 - Apply Distributed Systems Concepts
 - Use Containerization with Docker
@@ -80,7 +79,7 @@ The system is composed of independent services communicating through REST and Ap
 
 - [ ] Discovery Service
 - [ ] API Gateway
-- [ ] OAuth2 Authentication
+- [ ] Spring Security
 - [ ] User Service
 - [ ] Product Service
 - [ ] Order Service
@@ -95,4 +94,4 @@ The system is composed of independent services communicating through REST and Ap
 
 ## Author
 
-Julia Guerreiro
+Julia Dalanôra Guerreiro
