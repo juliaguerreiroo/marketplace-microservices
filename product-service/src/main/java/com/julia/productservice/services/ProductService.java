@@ -1,5 +1,6 @@
 package com.julia.productservice.services;
 
+import com.julia.productservice.dto.ProductDto;
 import com.julia.productservice.entities.Product;
 import com.julia.productservice.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,9 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Product findById(Long id){
+    public ProductDto findById(Long id){
         Optional<Product> obj = productRepository.findById(id);
-        return obj.get();
+        return new ProductDto(obj.get().getId(), obj.get().getName(), obj.get().getPrice());
     }
 
     public Product insert(Product product){

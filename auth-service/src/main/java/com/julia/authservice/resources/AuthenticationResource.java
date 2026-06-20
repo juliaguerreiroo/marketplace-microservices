@@ -1,7 +1,12 @@
 package com.julia.authservice.resources;
 
 
+import com.julia.authservice.dto.FindByEmailDto;
+import com.julia.authservice.dto.LoginResponseDto;
 import com.julia.authservice.dto.UserDto;
+import com.julia.authservice.entities.AuthenticatedUser;
+import com.julia.authservice.entities.User;
+import com.julia.authservice.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +23,19 @@ public class AuthenticationResource {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private TokenService tokenService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid UserDto data){
-        try {
-            var token = new UsernamePasswordAuthenticationToken(data.email(), data.password());
-            var auth = this.authenticationManager.authenticate(token);
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            e.printStackTrace();   // <- imprime a causa REAL no console
-            throw e;
-        }
+        var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
+        var auth = authenticationManager.authenticate(usernamePassword);
+
+        AuthenticatedUser user = (AuthenticatedUser) auth.getPrincipal();
+        String token = tokenService.generateToken(user);
+
+        return ResponseEntity.ok(new LoginResponseDto(token));
+
     }
 
 }

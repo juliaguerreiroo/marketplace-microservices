@@ -1,7 +1,7 @@
 package com.julia.userservice.resources;
 
+import com.julia.userservice.dto.FindByEmailDto;
 import com.julia.userservice.dto.RegisterDto;
-import com.julia.userservice.dto.UserDto;
 import com.julia.userservice.entities.User;
 import com.julia.userservice.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class UserResource {
     private UserService userService;
 
     @GetMapping("/search")
-    public ResponseEntity<User> findByEmail(@RequestParam String email) {
+    public ResponseEntity<FindByEmailDto> findByEmail(@RequestParam String email) {
         return ResponseEntity.ok().body(userService.findByEmail(email));
     }
 

@@ -1,5 +1,6 @@
 package com.julia.productservice.resources;
 
+import com.julia.productservice.dto.ProductDto;
 import com.julia.productservice.entities.Product;
 import com.julia.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class ProductResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Product> findById(@PathVariable Long id){
+    public ResponseEntity<ProductDto> findById(@PathVariable Long id){
         return ResponseEntity.ok().body(productService.findById(id));
     }
 

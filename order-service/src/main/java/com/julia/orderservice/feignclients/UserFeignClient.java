@@ -1,10 +1,8 @@
-package com.julia.authservice.feingclients;
+package com.julia.orderservice.feignclients;
 
-import com.julia.authservice.dto.FindByEmailDto;
-import com.julia.authservice.entities.User;
+import com.julia.orderservice.dto.FindByEmailDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 

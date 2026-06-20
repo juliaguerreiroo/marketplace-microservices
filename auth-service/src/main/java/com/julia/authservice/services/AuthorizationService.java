@@ -1,5 +1,7 @@
 package com.julia.authservice.services;
 
+import com.julia.authservice.dto.FindByEmailDto;
+import com.julia.authservice.entities.AuthenticatedUser;
 import com.julia.authservice.feingclients.UserFeignClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,18 @@ public class AuthorizationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserDetails user = userFeignClient.findByEmail(email).getBody();
+
+        FindByEmailDto user = userFeignClient.findByEmail(email).getBody();
+
         if (user == null) {
-            throw new UsernameNotFoundException("Usuário não encontrado: " + email);
+            throw new UsernameNotFoundException(
+                    "Usuário não encontrado: " + email);
         }
-        return user;
+
+        return new AuthenticatedUser(
+                user.email(),
+                user.password(),
+                user.role()
+        );
     }
 }

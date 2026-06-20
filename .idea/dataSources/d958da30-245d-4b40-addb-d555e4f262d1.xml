@@ -11,9 +11,9 @@
 4||10|c|G
 4||10|C|G
 4||10|T|G</Grants>
-      <IntrospectionStateNumber>905</IntrospectionStateNumber>
+      <IntrospectionStateNumber>998</IntrospectionStateNumber>
       <ServerVersion>17.6</ServerVersion>
-      <StartupTime>1781374100</StartupTime>
+      <StartupTime>1781973138</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -838,7 +838,7 @@ false Zulu
 14751||10|C|G
 14751||-9223372036854775808|U|G
 14751||10|U|G</Grants>
-      <IntrospectionStateNumber>905</IntrospectionStateNumber>
+      <IntrospectionStateNumber>998</IntrospectionStateNumber>
       <ObjectId>24917</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4277,14 +4277,178 @@ false Zulu
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <LastIntrospectionL1Xid>905</LastIntrospectionL1Xid>
-      <LastIntrospectionL2Xid>905</LastIntrospectionL2Xid>
-      <LastIntrospectionL3Xid>905</LastIntrospectionL3Xid>
+      <LastIntrospectionL1Xid>998</LastIntrospectionL1Xid>
+      <LastIntrospectionL2Xid>998</LastIntrospectionL2Xid>
+      <LastIntrospectionL3Xid>998</LastIntrospectionL3Xid>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2026-06-15.04:15:11</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2026-06-20.19:28:44</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>532</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
+    <sequence id="276" parent="275" name="tb_category_id_seq">
+      <DetailsLevel>2</DetailsLevel>
+      <ObjectId>41214</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>982</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <sequence id="277" parent="275" name="tb_product_id_seq">
+      <DetailsLevel>2</DetailsLevel>
+      <ObjectId>41220</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>983</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <table id="278" parent="275" name="tb_category">
+      <DetailsLevel>2</DetailsLevel>
+      <ObjectId>41215</ObjectId>
+      <StateNumber>985</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="279" parent="275" name="tb_product">
+      <DetailsLevel>2</DetailsLevel>
+      <ObjectId>41221</ObjectId>
+      <StateNumber>986</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="280" parent="275" name="tb_product_category">
+      <DetailsLevel>2</DetailsLevel>
+      <ObjectId>41228</ObjectId>
+      <StateNumber>985</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <column id="281" parent="278" name="id">
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>982</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <SequenceId>41214</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="282" parent="278" name="name">
+      <Position>2</Position>
+      <StateNumber>982</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="283" parent="278" name="tb_category_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>41218</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>982</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="284" parent="278" name="tb_category_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>41219</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>982</StateNumber>
+      <UnderlyingIndexId>41218</UnderlyingIndexId>
+    </key>
+    <column id="285" parent="279" name="id">
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>983</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <SequenceId>41220</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="286" parent="279" name="description">
+      <Position>2</Position>
+      <StateNumber>983</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="287" parent="279" name="name">
+      <Position>3</Position>
+      <StateNumber>983</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="288" parent="279" name="price">
+      <Position>4</Position>
+      <StateNumber>983</StateNumber>
+      <StoredType>double precision|0s</StoredType>
+      <TypeId>701</TypeId>
+    </column>
+    <column id="289" parent="279" name="stock">
+      <Position>5</Position>
+      <StateNumber>983</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <index id="290" parent="279" name="tb_product_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>41226</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>983</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="291" parent="279" name="tb_product_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>41227</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>983</StateNumber>
+      <UnderlyingIndexId>41226</UnderlyingIndexId>
+    </key>
+    <column id="292" parent="280" name="product_id">
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>984</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="293" parent="280" name="category_id">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StateNumber>984</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <foreign-key id="294" parent="280" name="fkgbof0jclmaf8wn2alsoexxq3u">
+      <ColNames>product_id</ColNames>
+      <ObjectId>41238</ObjectId>
+      <StateNumber>986</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>41221</RefTableId>
+    </foreign-key>
+    <foreign-key id="295" parent="280" name="fk5r4sbavb4nkd9xpl0f095qs2a">
+      <ColNames>category_id</ColNames>
+      <ObjectId>41233</ObjectId>
+      <StateNumber>985</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>41215</RefTableId>
+    </foreign-key>
+    <index id="296" parent="280" name="tb_product_category_pkey">
+      <ColNames>product_id
+category_id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>41231</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>984</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="297" parent="280" name="tb_product_category_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>41232</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>984</StateNumber>
+      <UnderlyingIndexId>41231</UnderlyingIndexId>
+    </key>
   </database-model>
 </dataSource>

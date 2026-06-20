@@ -1,5 +1,6 @@
 package com.julia.userservice.services;
 
+import com.julia.userservice.dto.FindByEmailDto;
 import com.julia.userservice.dto.RegisterDto;
 import com.julia.userservice.entities.User;
 import com.julia.userservice.repositories.UserRepository;
@@ -15,8 +16,10 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public User findByEmail(String name){
-        return userRepository.findByEmail(name);
+    public FindByEmailDto findByEmail(String name){
+        User user = userRepository.findByEmail(name);
+        FindByEmailDto data = new FindByEmailDto(user.getEmail(), user.getPassword(), user.getRole());
+        return data;
     }
 
     public User register(RegisterDto data){

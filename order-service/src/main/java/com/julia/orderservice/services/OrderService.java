@@ -2,12 +2,13 @@ package com.julia.orderservice.services;
 
 import com.julia.orderservice.dto.OrderDto;
 import com.julia.orderservice.dto.OrderItemDto;
+import com.julia.orderservice.dto.ProductDto;
 import com.julia.orderservice.entities.Order;
 import com.julia.orderservice.entities.OrderItem;
 import com.julia.orderservice.entities.OrderStatus;
+import com.julia.orderservice.entities.Product;
 import com.julia.orderservice.feignclients.ProductFeignClient;
 import com.julia.orderservice.repositories.OrderRepository;
-import com.julia.productservice.entities.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,8 @@ public class OrderService {
         for(OrderItemDto item : orderDto.items()){
             OrderItem orderItem = new OrderItem();
 
-            Product product = productFeignClient.findById(item.productId()).getBody();
+            ProductDto productDto = productFeignClient.findById(item.productId()).getBody();
+            Product product = new Product(productDto.id(), productDto.name(), productDto.price());
             orderItem.setProductId(product.getId());
             orderItem.setProductName(product.getName());
             orderItem.setProductPrice(product.getPrice());
