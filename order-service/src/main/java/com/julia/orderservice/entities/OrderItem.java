@@ -1,5 +1,6 @@
 package com.julia.orderservice.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +21,8 @@ public class OrderItem {
     private String productName;
     private Double productPrice;
     private Integer quantity;
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;

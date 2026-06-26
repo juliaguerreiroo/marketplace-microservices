@@ -1,9 +1,14 @@
 package com.julia.productservice.services;
 
+import com.julia.productservice.dto.OrderEvent;
+import com.julia.productservice.dto.OrderItemDto;
 import com.julia.productservice.dto.ProductDto;
 import com.julia.productservice.entities.Product;
 import com.julia.productservice.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.TopicPartition;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +19,8 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private KafkaTemplate<String, OrderEvent> kafkaTemplate;
 
     public List<Product> findAll() {
         return productRepository.findAll();
@@ -22,6 +29,11 @@ public class ProductService {
     public ProductDto findById(Long id){
         Optional<Product> obj = productRepository.findById(id);
         return new ProductDto(obj.get().getId(), obj.get().getName(), obj.get().getPrice());
+    }
+
+    public Product internFindById(Long id){
+        Optional<Product> obj = productRepository.findById(id);
+        return obj.get();
     }
 
     public Product insert(Product product){
@@ -42,4 +54,34 @@ public class ProductService {
         entity.getCategories().addAll(product.getCategories());
         return productRepository.save(entity);
     }
+
+    public void updateStock(Long id, Product product){
+        Product entity = productRepository.getReferenceById(id);
+        entity.setStock(product.getStock());
+        productRepository.save(entity);
+    }
+
+    @KafkaListener(topics = "order-processed", containerFactory = "productKafkaListenerContainerFactory")
+    public void listen(OrderEvent orderEvent) {
+        boolean allAvailable = true;
+
+        for (OrderItemDto item : orderEvent.items()) {
+            Product product = internFindById(item.productId());
+            if (product == null || item.quantity() > product.getStock()) {
+                allAvailable = false;
+                break;
+            }
+        }
+        if (allAvailable) {
+            for (OrderItemDto item : orderEvent.items()) {
+                Product product = internFindById(item.productId());
+                product.setStock(product.getStock() - item.quantity());
+                updateStock(product.getId(), product);
+            }
+            kafkaTemplate.send("stock-reserved", orderEvent.id().toString(), orderEvent);
+        } else {
+            kafkaTemplate.send("stock-rejected", orderEvent.id().toString(), orderEvent);
+        }
+    }
 }
+

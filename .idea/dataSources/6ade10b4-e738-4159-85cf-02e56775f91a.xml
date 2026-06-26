@@ -3,17 +3,9 @@
   <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.54">
     <root id="1">
       <DateStyle>dmy</DateStyle>
-      <Grants>1||-9223372036854775808|c|G
-1||10|c|G
-1||10|C|G
-1||10|T|G
-4||-9223372036854775808|c|G
-4||10|c|G
-4||10|C|G
-4||10|T|G</Grants>
-      <IntrospectionStateNumber>906</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1012</IntrospectionStateNumber>
       <ServerVersion>17.6</ServerVersion>
-      <StartupTime>1781374100</StartupTime>
+      <StartupTime>1782320305</StartupTime>
       <TimeZones>true ACDT
 true ACSST
 false ACST
@@ -829,7 +821,7 @@ false Zulu
 14751||10|C|G
 14751||-9223372036854775808|U|G
 14751||10|U|G</Grants>
-      <IntrospectionStateNumber>906</IntrospectionStateNumber>
+      <IntrospectionStateNumber>1012</IntrospectionStateNumber>
       <ObjectId>24916</ObjectId>
       <OwnerName>postgres</OwnerName>
     </database>
@@ -4277,14 +4269,163 @@ false Zulu
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <Comment>standard public schema</Comment>
       <Current>1</Current>
-      <LastIntrospectionL1Xid>906</LastIntrospectionL1Xid>
-      <LastIntrospectionL2Xid>906</LastIntrospectionL2Xid>
-      <LastIntrospectionL3Xid>906</LastIntrospectionL3Xid>
+      <LastIntrospectionL1Xid>1012</LastIntrospectionL1Xid>
+      <LastIntrospectionL2Xid>1012</LastIntrospectionL2Xid>
+      <LastIntrospectionL3Xid>1012</LastIntrospectionL3Xid>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2026-06-15.04:15:11</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2026-06-25.04:34:21</LastIntrospectionLocalTimestamp>
       <ObjectId>2200</ObjectId>
       <StateNumber>532</StateNumber>
       <OwnerName>pg_database_owner</OwnerName>
     </schema>
+    <sequence id="276" parent="275" name="tb_order_id_seq">
+      <DetailsLevel>2</DetailsLevel>
+      <ObjectId>49406</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1005</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <sequence id="277" parent="275" name="tb_order_item_id_seq">
+      <DetailsLevel>2</DetailsLevel>
+      <ObjectId>49413</ObjectId>
+      <SequenceIdentity>1</SequenceIdentity>
+      <StartValue>1</StartValue>
+      <StateNumber>1006</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <OwnerName>postgres</OwnerName>
+    </sequence>
+    <table id="278" parent="275" name="tb_order">
+      <DetailsLevel>2</DetailsLevel>
+      <ObjectId>49407</ObjectId>
+      <StateNumber>1007</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <table id="279" parent="275" name="tb_order_item">
+      <DetailsLevel>2</DetailsLevel>
+      <ObjectId>49414</ObjectId>
+      <StateNumber>1007</StateNumber>
+      <AccessMethodId>2</AccessMethodId>
+      <OwnerName>postgres</OwnerName>
+    </table>
+    <check id="280" parent="278" name="tb_order_status_check">
+      <ColNames>status</ColNames>
+      <ObjectId>49410</ObjectId>
+      <Predicate>(status)::text = ANY ((ARRAY[&apos;PENDING&apos;::character varying, &apos;PAID&apos;::character varying, &apos;SHIPPED&apos;::character varying, &apos;DELIVERED&apos;::character varying, &apos;CANCELLED&apos;::character varying])::text[])</Predicate>
+      <StateNumber>1005</StateNumber>
+    </check>
+    <column id="281" parent="278" name="id">
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1005</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <SequenceId>49406</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="282" parent="278" name="created_at">
+      <Position>2</Position>
+      <StateNumber>1005</StateNumber>
+      <StoredType>timestamp(6)|0s</StoredType>
+      <TypeId>1114</TypeId>
+    </column>
+    <column id="283" parent="278" name="status">
+      <Position>3</Position>
+      <StateNumber>1005</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="284" parent="278" name="total">
+      <Position>4</Position>
+      <StateNumber>1005</StateNumber>
+      <StoredType>double precision|0s</StoredType>
+      <TypeId>701</TypeId>
+    </column>
+    <column id="285" parent="278" name="user_id">
+      <Position>5</Position>
+      <StateNumber>1005</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <index id="286" parent="278" name="tb_order_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>49411</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1005</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="287" parent="278" name="tb_order_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>49412</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1005</StateNumber>
+      <UnderlyingIndexId>49411</UnderlyingIndexId>
+    </key>
+    <column id="288" parent="279" name="id">
+      <IdentityKind>by-default</IdentityKind>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StateNumber>1006</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <SequenceId>49413</SequenceId>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="289" parent="279" name="product_id">
+      <Position>2</Position>
+      <StateNumber>1006</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <column id="290" parent="279" name="product_name">
+      <Position>3</Position>
+      <StateNumber>1006</StateNumber>
+      <StoredType>varchar(255)|0s</StoredType>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="291" parent="279" name="product_price">
+      <Position>4</Position>
+      <StateNumber>1006</StateNumber>
+      <StoredType>double precision|0s</StoredType>
+      <TypeId>701</TypeId>
+    </column>
+    <column id="292" parent="279" name="quantity">
+      <Position>5</Position>
+      <StateNumber>1006</StateNumber>
+      <StoredType>integer|0s</StoredType>
+      <TypeId>23</TypeId>
+    </column>
+    <column id="293" parent="279" name="order_id">
+      <Position>6</Position>
+      <StateNumber>1006</StateNumber>
+      <StoredType>bigint|0s</StoredType>
+      <TypeId>20</TypeId>
+    </column>
+    <foreign-key id="294" parent="279" name="fkgeobgl2xu916he8vhljktwxnx">
+      <ColNames>order_id</ColNames>
+      <ObjectId>49419</ObjectId>
+      <StateNumber>1007</StateNumber>
+      <RefKeyColPositions>1</RefKeyColPositions>
+      <RefTableId>49407</RefTableId>
+    </foreign-key>
+    <index id="295" parent="279" name="tb_order_item_pkey">
+      <ColNames>id</ColNames>
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>49417</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1006</StateNumber>
+      <Unique>1</Unique>
+      <AccessMethodId>403</AccessMethodId>
+    </index>
+    <key id="296" parent="279" name="tb_order_item_pkey">
+      <NameSurrogate>1</NameSurrogate>
+      <ObjectId>49418</ObjectId>
+      <Primary>1</Primary>
+      <StateNumber>1006</StateNumber>
+      <UnderlyingIndexId>49417</UnderlyingIndexId>
+    </key>
   </database-model>
 </dataSource>

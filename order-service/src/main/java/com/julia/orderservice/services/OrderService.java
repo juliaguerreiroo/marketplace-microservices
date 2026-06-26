@@ -1,6 +1,7 @@
 package com.julia.orderservice.services;
 
 import com.julia.orderservice.dto.OrderDto;
+import com.julia.orderservice.dto.OrderEvent;
 import com.julia.orderservice.dto.OrderItemDto;
 import com.julia.orderservice.dto.ProductDto;
 import com.julia.orderservice.entities.Order;
@@ -10,10 +11,12 @@ import com.julia.orderservice.entities.Product;
 import com.julia.orderservice.feignclients.ProductFeignClient;
 import com.julia.orderservice.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.TopicPartition;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -23,6 +26,8 @@ public class OrderService {
     private OrderRepository orderRepository;
     @Autowired
     private ProductFeignClient productFeignClient;
+    @Autowired
+    private KafkaTemplate<String, OrderEvent> kafkaTemplate;
 
     public List<Order> findAll() {
         return orderRepository.findAll();
@@ -55,7 +60,12 @@ public class OrderService {
             order.getItems().add(orderItem);
         }
         order.calculateTotal();
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+
+        OrderEvent orderEvent = new OrderEvent(savedOrder.getId(), orderDto.items());
+        kafkaTemplate.send("order-processed", orderEvent.id().toString(), orderEvent);
+
+        return savedOrder;
     }
 
     public void delete(Long id){
@@ -72,5 +82,12 @@ public class OrderService {
         }
         entity.calculateTotal();
         return orderRepository.save(entity);
+    }
+
+    @KafkaListener(topics = "stock-rejected", containerFactory = "orderKafkaListenerContainerFactory")
+    public void listen(OrderEvent orderEvent) {
+        Order order = findById(orderEvent.id());
+        order.setStatus(OrderStatus.CANCELLED);
+        orderRepository.save(order);
     }
 }
