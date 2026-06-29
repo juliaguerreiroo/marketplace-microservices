@@ -1,18 +1,13 @@
 package com.julia.orderservice.services;
 
-import com.julia.orderservice.dto.OrderDto;
-import com.julia.orderservice.dto.OrderEvent;
-import com.julia.orderservice.dto.OrderItemDto;
-import com.julia.orderservice.dto.ProductDto;
-import com.julia.orderservice.entities.Order;
-import com.julia.orderservice.entities.OrderItem;
-import com.julia.orderservice.entities.OrderStatus;
-import com.julia.orderservice.entities.Product;
+import com.julia.orderservice.dto.*;
+import com.julia.orderservice.entities.*;
 import com.julia.orderservice.feignclients.ProductFeignClient;
 import com.julia.orderservice.repositories.OrderRepository;
+import com.julia.orderservice.repositories.PaymentDataRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +22,9 @@ public class OrderService {
     @Autowired
     private ProductFeignClient productFeignClient;
     @Autowired
-    private KafkaTemplate<String, OrderEvent> kafkaTemplate;
+    private KafkaTemplate<String, Object> kafkaTemplate;
+    @Autowired
+    private PaymentDataRepository paymentDataRepository;
 
     public List<Order> findAll() {
         return orderRepository.findAll();
@@ -38,7 +35,7 @@ public class OrderService {
         return obj.get();
     }
 
-    public Order insert(OrderDto orderDto){
+    public Order insert(OrderDto orderDto, PaymentData paymentData){
 
         Order order = new Order();
 
@@ -61,6 +58,8 @@ public class OrderService {
         }
         order.calculateTotal();
         Order savedOrder = orderRepository.save(order);
+        paymentData.setOrderId(savedOrder.getId());
+        paymentDataRepository.save(paymentData);
 
         OrderEvent orderEvent = new OrderEvent(savedOrder.getId(), orderDto.items());
         kafkaTemplate.send("order-processed", orderEvent.id().toString(), orderEvent);
@@ -85,9 +84,48 @@ public class OrderService {
     }
 
     @KafkaListener(topics = "stock-rejected", containerFactory = "orderKafkaListenerContainerFactory")
-    public void listen(OrderEvent orderEvent) {
-        Order order = findById(orderEvent.id());
+    public void listenRejected(Long id) {
+        Order order = findById(id);
         order.setStatus(OrderStatus.CANCELLED);
         orderRepository.save(order);
+    }
+
+    @Transactional
+    @KafkaListener(topics = "stock-reserved", containerFactory = "orderKafkaListenerContainerFactory")
+    public void listenReserved(Long id) {
+        Order order = findById(id);
+        order.setStatus(OrderStatus.WAITING_PAYMENT);
+        orderRepository.save(order);
+
+        PaymentData paymentData = paymentDataRepository.findByOrderId(id).orElseThrow(() -> new RuntimeException("PaymentData não encontrado."));
+        OrderPayment orderPayment = new OrderPayment(id, order.getTotal(), paymentData.getMethod(), paymentData.getCardToken());
+        kafkaTemplate.send("order-waiting-payment", id.toString(), orderPayment);
+        paymentDataRepository.delete(paymentData);
+    }
+
+    @KafkaListener(topics = "payment-approved", containerFactory = "orderKafkaListenerContainerFactory")
+    public void listenApproved(Long id) {
+        Order order = findById(id);
+        order.setStatus(OrderStatus.PAID);
+        orderRepository.save(order);
+    }
+
+    @KafkaListener(topics = "payment-failed", containerFactory = "orderKafkaListenerContainerFactory")
+    public void listenFailed(Long id) {
+        Order order = findById(id);
+        order.setStatus(OrderStatus.CANCELLED);
+        orderRepository.save(order);
+
+        List<OrderItemDto> items = order.getItems()
+                .stream()
+                .map(item -> new OrderItemDto(
+                        item.getProductId(),
+                        item.getQuantity()
+                ))
+                .toList();
+
+        OrderEvent event = new OrderEvent(order.getId(), items);
+
+        kafkaTemplate.send("order-stock-rollback", order.getId().toString(), event);
     }
 }

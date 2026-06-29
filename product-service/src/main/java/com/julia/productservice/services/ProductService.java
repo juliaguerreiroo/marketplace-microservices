@@ -1,16 +1,16 @@
 package com.julia.productservice.services;
 
-import com.julia.productservice.dto.OrderEvent;
-import com.julia.productservice.dto.OrderItemDto;
-import com.julia.productservice.dto.ProductDto;
+import com.julia.productservice.dto.*;
 import com.julia.productservice.entities.Product;
 import com.julia.productservice.repositories.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +20,7 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private KafkaTemplate<String, OrderEvent> kafkaTemplate;
+    private KafkaTemplate<String, Long> kafkaTemplate;
 
     public List<Product> findAll() {
         return productRepository.findAll();
@@ -61,6 +61,7 @@ public class ProductService {
         productRepository.save(entity);
     }
 
+    @Transactional
     @KafkaListener(topics = "order-processed", containerFactory = "productKafkaListenerContainerFactory")
     public void listen(OrderEvent orderEvent) {
         boolean allAvailable = true;
@@ -78,9 +79,18 @@ public class ProductService {
                 product.setStock(product.getStock() - item.quantity());
                 updateStock(product.getId(), product);
             }
-            kafkaTemplate.send("stock-reserved", orderEvent.id().toString(), orderEvent);
+            kafkaTemplate.send("stock-reserved", orderEvent.id().toString(), orderEvent.id());
         } else {
-            kafkaTemplate.send("stock-rejected", orderEvent.id().toString(), orderEvent);
+            kafkaTemplate.send("stock-rejected", orderEvent.id().toString(), orderEvent.id());
+        }
+    }
+
+    @KafkaListener(topics = "order-stock-rollback", containerFactory = "productKafkaListenerContainerFactory")
+    public void listenRollback(OrderEvent orderEvent) {
+        for (OrderItemDto item : orderEvent.items()) {
+            Product product = internFindById(item.productId());
+            product.setStock(product.getStock() + item.quantity());
+            updateStock(product.getId(), product);
         }
     }
 }

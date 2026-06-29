@@ -1,6 +1,5 @@
-package com.julia.orderservice.config;
+package com.julia.paymentservice.config;
 
-import com.julia.orderservice.dto.OrderEvent;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +20,7 @@ public class KafkaProducerConfig {
     private String boostrapAddress;
 
     @Bean
-    public ProducerFactory<String, Object> productProducerFactory() {
+    public ProducerFactory<String, Object> orderProducerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, boostrapAddress);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -30,7 +29,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, Object> productKafkaTemplate() {
-        return new KafkaTemplate<>(productProducerFactory());
+    public KafkaTemplate<String, Object> orderKafkaTemplate() {
+        return new KafkaTemplate<>(orderProducerFactory());
     }
 }

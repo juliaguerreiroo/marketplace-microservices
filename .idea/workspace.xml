@@ -5,28 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7e4a38e8-9b44-46e4-bf8c-7fcbd856a6d4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/config/KafkaConsumerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/config/KafkaProducerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/config/KafkaTopicConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/dto/OrderEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/main/java/com/julia/productservice/config/KafkaConsumerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/main/java/com/julia/productservice/config/KafkaProducerConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/main/java/com/julia/productservice/config/KafkaTopicConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/main/java/com/julia/productservice/dto/OrderEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product-service/src/main/java/com/julia/productservice/dto/OrderItemDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6ade10b4-e738-4159-85cf-02e56775f91a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6ade10b4-e738-4159-85cf-02e56775f91a.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6ade10b4-e738-4159-85cf-02e56775f91a/storage_v2/_src_/database/order_db.D_-RSQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6ade10b4-e738-4159-85cf-02e56775f91a/storage_v2/_src_/database/order_db.D_-RSQ/schema/public.abK9xQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/dto/OrderPayment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/entities/PaymentData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/repositories/PaymentDataRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/config/KafkaConsumerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/config/KafkaProducerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/config/KafkaTopicConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/dto/FindByEmailDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/dto/OrderPayment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/entities/AuthenticatedUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/entities/Payment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/entities/PaymentStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/entities/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/feignclients/UserFeignClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/infra/security/SecurityFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/infra/security/TokenService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/repositories/PaymentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/julia/paymentservice/services/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/dto/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/dto/OrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/entities/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/entities/OrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/config/KafkaConsumerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/config/KafkaConsumerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/config/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/config/KafkaProducerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/config/KafkaTopicConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/config/KafkaTopicConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/entities/OrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/entities/OrderStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/services/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/java/com/julia/orderservice/services/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/order-service/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/julia/productservice/config/KafkaConsumerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/julia/productservice/config/KafkaConsumerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/julia/productservice/config/KafkaProducerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/julia/productservice/config/KafkaProducerConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product-service/src/main/java/com/julia/productservice/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/java/com/julia/productservice/services/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/product-service/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +43,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="140" />
+    <option name="cachedIndexableFilesCount" value="169" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExternalProjectsManager">
@@ -54,8 +63,8 @@
       <list>
         <option value="Interface" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Record" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -109,9 +118,10 @@
     &quot;Spring Boot.OrderServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.ProductServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/judal/OneDrive/Documentos/projetos-intellij/marketplace-microservices/product-service/src/main/java/com/julia/productservice/config&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/judal/OneDrive/Documentos/projetos-intellij/marketplace-microservices/payment-service/src/main/java/com/julia/paymentservice/dto&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -132,21 +142,21 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\judal\OneDrive\Documentos\projetos-intellij\marketplace-microservices\payment-service\src\main\java\com\julia\paymentservice\dto" />
+      <recent name="C:\Users\judal\OneDrive\Documentos\projetos-intellij\marketplace-microservices\payment-service\src\main\java\com\julia\paymentservice\config" />
+      <recent name="C:\Users\judal\OneDrive\Documentos\projetos-intellij\marketplace-microservices\payment-service\src\main\java\com\julia\paymentservice" />
+      <recent name="C:\Users\judal\OneDrive\Documentos\projetos-intellij\marketplace-microservices\payment-service\src\main\java\com\julia\paymentservice\entities" />
       <recent name="C:\Users\judal\OneDrive\Documentos\projetos-intellij\marketplace-microservices\product-service\src\main\java\com\julia\productservice\config" />
-      <recent name="C:\Users\judal\OneDrive\Documentos\projetos-intellij\marketplace-microservices\product-service\src\main\java\com\julia\productservice\dto" />
-      <recent name="C:\Users\judal\OneDrive\Documentos\projetos-intellij\marketplace-microservices\order-service\src\main\java\com\julia\orderservice" />
-      <recent name="C:\Users\judal\OneDrive\Documentos\projetos-intellij\marketplace-microservices\product-service\src\main\java\com\julia\productservice\entities" />
-      <recent name="C:\Users\judal\OneDrive\Documentos\projetos-intellij\marketplace-microservices\product-service\src\main\java\com\julia\productservice\infra\security" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\judal\OneDrive\Documentos\projetos-intellij\marketplace-microservices" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.julia.productservice.dto" />
-      <recent name="com.julia.orderservice.config" />
-      <recent name="com.julia.productservice.entities" />
-      <recent name="com.julia.orderservice.entities" />
+      <recent name="com.julia.orderservice.repositories" />
       <recent name="com.julia.orderservice.dto" />
+      <recent name="com.julia.paymentservice.dto" />
+      <recent name="com.julia.paymentservice.config" />
+      <recent name="com.julia.paymentservice.entities" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -240,6 +250,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PaymentServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="payment-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.julia.paymentservice.PaymentServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ProductServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <envs>
         <env name="DB_PASSWORD" value="julia" />
@@ -265,6 +282,7 @@
     <list>
       <item itemvalue="Application.UserServiceApplication" />
       <item itemvalue="JUnit.All in product-service" />
+      <item itemvalue="Spring Boot.PaymentServiceApplication" />
       <item itemvalue="Spring Boot.OrderServiceApplication" />
       <item itemvalue="Spring Boot.ProductServiceApplication" />
       <item itemvalue="Spring Boot.ApiGatewayApplication" />
@@ -324,7 +342,11 @@
       <workItem from="1781996395547" duration="11670000" />
       <workItem from="1782063288940" duration="594000" />
       <workItem from="1782332037045" duration="19484000" />
-      <workItem from="1782448698550" duration="9472000" />
+      <workItem from="1782448698550" duration="9927000" />
+      <workItem from="1782533071334" duration="2056000" />
+      <workItem from="1782620404065" duration="5401000" />
+      <workItem from="1782678668576" duration="100000" />
+      <workItem from="1782693762322" duration="11397000" />
     </task>
     <servers />
   </component>

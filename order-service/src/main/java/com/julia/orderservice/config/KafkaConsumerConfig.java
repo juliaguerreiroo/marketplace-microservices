@@ -2,6 +2,7 @@ package com.julia.orderservice.config;
 
 import com.julia.orderservice.dto.OrderEvent;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,26 +20,28 @@ import java.util.Map;
 public class KafkaConsumerConfig {
 
     @Value(value = "${spring.kafka.bootstrap-servers}")
-    private String boostrapAddress;
+    private String bootstrapAddress;
 
     @Bean
-    public ConsumerFactory<String, OrderEvent> orderConsumerFactory() {
+    public ConsumerFactory<String, Long> orderConsumerFactory() {
         Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, boostrapAddress);
+
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "order-service-group");
-        JsonDeserializer<OrderEvent> deserializer = new JsonDeserializer<>(OrderEvent.class);
-        deserializer.addTrustedPackages("*");
-        deserializer.setUseTypeHeaders(false);
-        ErrorHandlingDeserializer<OrderEvent> errorHandlingDeserializer = new ErrorHandlingDeserializer<>(deserializer);
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
+                StringDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
+                LongDeserializer.class);
 
-        return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), errorHandlingDeserializer);
-
+        return new DefaultKafkaConsumerFactory<>(props);
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, OrderEvent> orderKafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, OrderEvent> factory = new ConcurrentKafkaListenerContainerFactory<>();
+    public ConcurrentKafkaListenerContainerFactory<String, Long> orderKafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Long> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(orderConsumerFactory());
+
         return factory;
     }
 }

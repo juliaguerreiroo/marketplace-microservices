@@ -1,4 +1,4 @@
-package com.julia.orderservice.config;
+package com.julia.paymentservice.config;
 
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -23,17 +23,12 @@ public class KafkaTopicConfig {
     }
 
     @Bean
-    public NewTopic processedTopic(){
-        return new NewTopic("order-processed", 1, (short) 1);
+    public NewTopic approvedTopic(){
+        return new NewTopic("payment-approved", 1, (short) 1);
     }
 
     @Bean
-    public NewTopic reservedTopic(){
-        return new NewTopic("order-waiting-payment", 1, (short) 1);
-    }
-
-    @Bean
-    public NewTopic rollbackTopic(){
-        return new NewTopic("order-stock-rollback", 1, (short) 1);
+    public NewTopic rejectedTopic(){
+        return new NewTopic("payment-failed", 1, (short) 1);
     }
 }
