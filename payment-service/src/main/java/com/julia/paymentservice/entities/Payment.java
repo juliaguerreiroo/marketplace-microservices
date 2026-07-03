@@ -24,4 +24,11 @@ public class Payment {
     private PaymentStatus  status;
     private LocalDateTime createdAt;
     private String method;
+
+    public Payment(Long orderId, Double amount, PaymentStatus status, String method) {
+        this.orderId = orderId;
+        this.amount = amount;
+        this.status = status;
+        this.method = method;
+    }
 }

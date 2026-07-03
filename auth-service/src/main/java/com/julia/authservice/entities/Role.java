@@ -1,6 +1,5 @@
 package com.julia.authservice.entities;
 
-
 import lombok.Getter;
 
 @Getter

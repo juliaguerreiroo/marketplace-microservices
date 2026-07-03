@@ -2,6 +2,9 @@ package com.julia.orderservice.services;
 
 import com.julia.orderservice.dto.*;
 import com.julia.orderservice.entities.*;
+import com.julia.orderservice.exceptions.InvalidDataException;
+import com.julia.orderservice.exceptions.OrderNotFoundException;
+import com.julia.orderservice.exceptions.PaymentDataNotFoundException;
 import com.julia.orderservice.feignclients.ProductFeignClient;
 import com.julia.orderservice.repositories.OrderRepository;
 import com.julia.orderservice.repositories.PaymentDataRepository;
@@ -31,12 +34,30 @@ public class OrderService {
     }
 
     public Order findById(Long id){
+        if(id == null){
+            throw new InvalidDataException("Id is required");
+        }
         Optional<Order> obj = orderRepository.findById(id);
+        if(obj.isEmpty()){
+            throw new OrderNotFoundException("Order not found");
+        }
         return obj.get();
     }
 
     public Order insert(OrderDto orderDto, PaymentData paymentData){
 
+        if(orderDto.items().isEmpty()){
+            throw new InvalidDataException("At least one item is required");
+        }
+        if(orderDto.userId() == null){
+            throw new InvalidDataException("UserId is required");
+        }
+        if(paymentData.getCardToken() == null){
+            throw new InvalidDataException("CardToken is required");
+        }
+        if(paymentData.getMethod() == null){
+            throw new InvalidDataException("Method is required");
+        }
         Order order = new Order();
 
         order.setUserId(orderDto.userId());
@@ -47,6 +68,9 @@ public class OrderService {
             OrderItem orderItem = new OrderItem();
 
             ProductDto productDto = productFeignClient.findById(item.productId()).getBody();
+            if(productDto == null){
+                throw new InvalidDataException("One or more products are invalid");
+            }
             Product product = new Product(productDto.id(), productDto.name(), productDto.price());
             orderItem.setProductId(product.getId());
             orderItem.setProductName(product.getName());
@@ -68,11 +92,18 @@ public class OrderService {
     }
 
     public void delete(Long id){
+        findById(id);
         orderRepository.deleteById(id);
     }
 
     public Order update(Long id, Order order){
-        Order entity = orderRepository.getReferenceById(id);
+        if(order.getStatus() == null){
+            throw new InvalidDataException("Status is required");
+        }
+        if(order.getItems().isEmpty()){
+            throw new InvalidDataException("At least one item is required");
+        }
+        Order entity = findById(id);
         entity.setStatus(order.getStatus());
         entity.getItems().clear();
         for (OrderItem item : order.getItems()) {
@@ -97,7 +128,7 @@ public class OrderService {
         order.setStatus(OrderStatus.WAITING_PAYMENT);
         orderRepository.save(order);
 
-        PaymentData paymentData = paymentDataRepository.findByOrderId(id).orElseThrow(() -> new RuntimeException("PaymentData não encontrado."));
+        PaymentData paymentData = paymentDataRepository.findByOrderId(id).orElseThrow(() -> new PaymentDataNotFoundException("Payment Data not found"));
         OrderPayment orderPayment = new OrderPayment(id, order.getTotal(), paymentData.getMethod(), paymentData.getCardToken());
         kafkaTemplate.send("order-waiting-payment", id.toString(), orderPayment);
         paymentDataRepository.delete(paymentData);

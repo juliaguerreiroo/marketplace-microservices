@@ -4,7 +4,6 @@ import com.julia.authservice.dto.FindByEmailDto;
 import com.julia.authservice.entities.AuthenticatedUser;
 import com.julia.authservice.feingclients.UserFeignClient;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

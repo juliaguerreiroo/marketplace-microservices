@@ -1,11 +1,8 @@
 package com.julia.authservice.resources;
 
-
-import com.julia.authservice.dto.FindByEmailDto;
 import com.julia.authservice.dto.LoginResponseDto;
 import com.julia.authservice.dto.UserDto;
 import com.julia.authservice.entities.AuthenticatedUser;
-import com.julia.authservice.entities.User;
 import com.julia.authservice.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
