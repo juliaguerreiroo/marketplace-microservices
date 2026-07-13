@@ -18,17 +18,14 @@ The system is composed of independent services communicating through REST and Ap
                        │
       ┌────────────────┼────────────────┐
       ▼                ▼                ▼
- Auth Service    User Service    Product Service
-                                          │
-                                          ▼
-                                   Order Service
+ Auth Service    User Service    Order Service
                                           │
                                           ▼
                                         Kafka
                                           │
                ┌──────────────┬──────────────┬──────────────┐
-               ▼              ▼              ▼
-       Payment Service  Inventory Service  Notification Service
+                              ▼              ▼
+                       Payment Service  Product Service 
 ```
 
 ### Services
@@ -39,9 +36,7 @@ The system is composed of independent services communicating through REST and Ap
 - User Service
 - Product Service
 - Order Service
-- Inventory Service
 - Payment Service
-- Notification Service
 
 ## Technologies
 
@@ -74,23 +69,6 @@ The system is composed of independent services communicating through REST and Ap
 ## Current Status
 
 🚧 In Development
-
-## Roadmap
-
-- [ ] Discovery Service
-- [ ] API Gateway
-- [ ] Spring Security
-- [ ] User Service
-- [ ] Product Service
-- [ ] Order Service
-- [ ] Kafka Integration
-- [ ] Inventory Service
-- [ ] Payment Service
-- [ ] Notification Service
-- [ ] Docker Compose
-- [ ] Redis Cache
-- [ ] Observability
-- [ ] Saga Pattern
 
 ## Author
 
