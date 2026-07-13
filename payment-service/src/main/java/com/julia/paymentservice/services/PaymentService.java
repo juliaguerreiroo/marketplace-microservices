@@ -77,7 +77,6 @@ public class PaymentService {
 
     @KafkaListener(topics = "order-waiting-payment", containerFactory = "paymentKafkaListenerContainerFactory")
     public void listenReserved(OrderPayment orderPayment) {
-        findById(orderPayment.id());
         Payment payment = new Payment();
         payment.setCreatedAt(LocalDateTime.now());
         payment.setStatus(PaymentStatus.PENDING);
@@ -85,7 +84,7 @@ public class PaymentService {
         payment.setOrderId(orderPayment.id());
         payment.setMethod(orderPayment.method());
 
-        insert(payment);
+        payment = insert(payment);
         processPayment(payment, orderPayment.token());
     }
 

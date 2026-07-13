@@ -2,6 +2,7 @@ package com.julia.orderservice.resources;
 
 import com.julia.orderservice.dto.OrderDto;
 import com.julia.orderservice.entities.Order;
+import com.julia.orderservice.entities.PaymentData;
 import com.julia.orderservice.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

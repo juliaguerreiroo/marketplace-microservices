@@ -44,7 +44,7 @@ public class OrderService {
         return obj.get();
     }
 
-    public Order insert(OrderDto orderDto, PaymentData paymentData){
+    public Order insert(OrderDto orderDto){
 
         if(orderDto.items().isEmpty()){
             throw new InvalidDataException("At least one item is required");
@@ -52,10 +52,10 @@ public class OrderService {
         if(orderDto.userId() == null){
             throw new InvalidDataException("UserId is required");
         }
-        if(paymentData.getCardToken() == null){
+        if(orderDto.paymentData().getCardToken() == null){
             throw new InvalidDataException("CardToken is required");
         }
-        if(paymentData.getMethod() == null){
+        if(orderDto.paymentData().getMethod() == null){
             throw new InvalidDataException("Method is required");
         }
         Order order = new Order();
@@ -82,12 +82,16 @@ public class OrderService {
         }
         order.calculateTotal();
         Order savedOrder = orderRepository.save(order);
-        paymentData.setOrderId(savedOrder.getId());
-        paymentDataRepository.save(paymentData);
 
+        PaymentData paymentData = new PaymentData();
+        paymentData.setMethod(orderDto.paymentData().getMethod());
+        paymentData.setCardToken(orderDto.paymentData().getCardToken());
+        paymentData.setOrderId(savedOrder.getId());
+        paymentData.setId(orderDto.paymentData().getId());
+
+        paymentDataRepository.save(paymentData);
         OrderEvent orderEvent = new OrderEvent(savedOrder.getId(), orderDto.items());
         kafkaTemplate.send("order-processed", orderEvent.id().toString(), orderEvent);
-
         return savedOrder;
     }
 

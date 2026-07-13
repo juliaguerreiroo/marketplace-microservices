@@ -1,6 +1,7 @@
 package com.julia.productservice.config;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.LongSerializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -20,16 +21,16 @@ public class KafkaProducerConfig {
     private String boostrapAddress;
 
     @Bean
-    public ProducerFactory<String, Object> productProducerFactory() {
+    public ProducerFactory<String, Long> productProducerFactory() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, boostrapAddress);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, LongSerializer.class);
         return new DefaultKafkaProducerFactory<>(props);
     }
 
     @Bean
-    public KafkaTemplate<String, Object> productKafkaTemplate() {
+    public KafkaTemplate<String, Long> productKafkaTemplate() {
         return new KafkaTemplate<>(productProducerFactory());
     }
 }

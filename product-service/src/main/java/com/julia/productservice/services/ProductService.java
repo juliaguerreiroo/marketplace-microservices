@@ -8,6 +8,8 @@ import com.julia.productservice.exceptions.ProductNotFoundException;
 import com.julia.productservice.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    @Cacheable(value = "products", key = "#id")
     public ProductDto findById(Long id){
         if(id == null){
             throw new InvalidDataException("Id is required");
@@ -74,6 +77,7 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    @CacheEvict(value = "products", key = "#id")
     public Product update(Long id, Product product){
         Product entity = internFindById(id);
         if(product.getName() == null || product.getName().isBlank()){
@@ -106,6 +110,7 @@ public class ProductService {
         return productRepository.save(entity);
     }
 
+    @CacheEvict(value = "products", key = "#id")
     public void updateStock(Long id, Product product){
         Product p = internFindById(id);
         if(product.getStock() == null){
