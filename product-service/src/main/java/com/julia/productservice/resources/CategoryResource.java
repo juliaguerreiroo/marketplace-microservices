@@ -3,6 +3,8 @@ package com.julia.productservice.resources;
 import com.julia.productservice.entities.Category;
 import com.julia.productservice.services.CategoryService;
 import com.netflix.discovery.converters.Auto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+@Tag(name = "Category Resource", description = "Endpoints for category management")
 @RestController
 @RequestMapping("/categories")
 public class CategoryResource {
@@ -18,16 +21,19 @@ public class CategoryResource {
     @Autowired
     private CategoryService categoryService;
 
+    @Operation(summary = "Find all categories")
     @GetMapping
     public ResponseEntity<List<Category>> findAll(){
         return ResponseEntity.ok().body(categoryService.findAll());
     }
 
+    @Operation(summary = "Find category by id")
     @GetMapping(value = "/{id}")
     public ResponseEntity<Category> findById(@PathVariable Long id){
         return ResponseEntity.ok().body(categoryService.findById(id));
     }
 
+    @Operation(summary = "Insert a new category")
     @PostMapping
     public ResponseEntity<Category> insert(@RequestBody Category obj){
         obj = categoryService.insert(obj);
@@ -35,12 +41,14 @@ public class CategoryResource {
         return ResponseEntity.created(uri).body(obj);
     }
 
+    @Operation(summary = "Delete a category by id")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Update a category by id")
     @PutMapping(value = "/{id}")
     public ResponseEntity<Category> update(@PathVariable Long id, @RequestBody Category obj){
         obj = categoryService.update(id, obj);

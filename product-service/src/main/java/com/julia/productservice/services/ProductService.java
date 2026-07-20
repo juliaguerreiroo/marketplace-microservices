@@ -40,6 +40,7 @@ public class ProductService {
         return new ProductDto(obj.get().getId(), obj.get().getName(), obj.get().getPrice());
     }
 
+    @Cacheable(value = "products", key = "#id")
     public Product internFindById(Long id){
         if(id == null){
             throw new InvalidDataException("Id is required");
