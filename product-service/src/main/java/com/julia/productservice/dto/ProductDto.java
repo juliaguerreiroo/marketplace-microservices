@@ -1,4 +1,6 @@
 package com.julia.productservice.dto;
 
-public record ProductDto(Long id, String name, Double price) {
+import java.io.Serializable;
+
+public record ProductDto(Long id, String name, Double price) implements Serializable {
 }
